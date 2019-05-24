@@ -1,0 +1,19 @@
+#number-projects-nd {
+    font-size: 60px;
+}
+
+#number-records-nd {
+    font-size: 60px;
+}
+
+.dc-chart g.row text {
+    fill: black;
+    font-size: 12px;
+}
+
+.anyClass {
+    height:350px;
+    overflow-y: scroll;
+  }
+
+.btn1{float:right}

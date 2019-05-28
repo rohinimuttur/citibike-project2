@@ -192,7 +192,7 @@ function makeGraphs(error, projectsJson) {
 	drawMap();
 
 	//Update the heatmap if any dc chart get filtered
-	dcCharts = [genderChart,ageChart,startStnChart,endStnChart,timeChart,timeChart];
+	dcCharts = [genderChart,ageChart,startStnChart,endStnChart,timeChart,calorieChart,calChart];
 
 	_.each(dcCharts, function (dcChart) {
 		dcChart.on("filtered", function (chart, filter) {

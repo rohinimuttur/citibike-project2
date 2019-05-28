@@ -22,7 +22,7 @@ def index():
 @app.route("/data")
 def get_data():
     # Code from the previous section: Data preparation
-    dfnew=pd.read_csv('project2/input/sample1.csv')
+    dfnew=pd.read_csv('input/sample1.csv')
     dfnew=dfnew.dropna()
     dfnew['birth year']=dfnew['birth year'].astype(int)
     dfnew['yearofride']=dfnew.date.str[:7]

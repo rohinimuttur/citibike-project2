@@ -35,7 +35,11 @@ def get_data():
     dfnew['yearofride']=dfnew.date.str[:7]
     dfnew.loc[dfnew['gender'] == 1, 'gender'] = 'Male'
     dfnew.loc[dfnew['gender'] == 2, 'gender'] = 'Female'
-    dfnew.loc[dfnew['gender'] == 0, 'gender'] = 'Other'    
+    dfnew.loc[dfnew['gender'] == 0, 'gender'] = 'Other' 
+
+    bins= [0,40,120,180,250,320,1000]
+    group_names=['<40','40-120','120-180','180-249','250-319','320+']
+    dfnew["calories_grouped"]= pd.cut(dfnew["calories_burned"], bins, labels=group_names)  
     return dfnew.to_json(orient='records')
     
 

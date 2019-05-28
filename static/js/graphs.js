@@ -34,6 +34,10 @@ function makeGraphs(error, projectsJson) {
 	 var ageGroup = ageDim.group();	
 	 var ageChart = dc.pieChart("#age-segment-row-chart");
 
+	 var calorieDim=ndx.dimension(function(d) { return d["calories_grouped"]; })
+	 var calorieGroup = calorieDim.group();	
+	 var calorieChart = dc.pieChart("#calorie-segment-row-chart");
+
 	 var calDim=ndx.dimension(function(d) { return d["Time_day"]})
 	 //var calDim2=ndx.dimension(function(d) { return d["calories_burned"]  + '-' +d["gender"]})	 
 	 var calGroup = calDim.group();
@@ -83,18 +87,32 @@ function makeGraphs(error, projectsJson) {
 
 
 	ageChart		
-		.width(270)
-		.height(250)		
-		.innerRadius(50) 				
+		.width(250)
+		.height(260)		
+		.innerRadius(40) 				
         .dimension(ageDim)
 		.group(ageGroup)				
-		.legend(dc.legend())
-        
+		.legend(dc.legend()) 
+		.label(function(d) {
+			return d.data.key + ' ' + Math.round((d.endAngle - d.startAngle) / Math.PI * 50) + '%';
+		});       
 		;
-		
+	
+	calorieChart		
+		.width(270)
+		.height(260)		
+		.innerRadius(50) 				
+        .dimension(calorieDim)
+		.group(calorieGroup)				
+		.legend(dc.legend())   
+		.label(function(d) {
+			return d.data.key + ' ' + Math.round((d.endAngle - d.startAngle) / Math.PI * 50) + '%';
+		});  
+		;
+	// Time of Day Chart	
 	calChart
 		.width(350)
-		.height(410)	
+		.height(420)	
 		.x(d3.scale.linear().domain([0,1000]).range([0, 1000]))		
 		.dimension(calDim)
 		.group(calGroup)
@@ -106,7 +124,7 @@ function makeGraphs(error, projectsJson) {
 		
 	startStnChart
 			.width(300)
-			.height(15000)					
+			.height(16000)					
 		    .dimension(startStnDim)
 		    .group(startStnGroup)
 			.ordering(function(d) { return -d.value })				
@@ -116,7 +134,7 @@ function makeGraphs(error, projectsJson) {
 			.xAxis().ticks(4);
 	endStnChart
 			.width(300)
-			.height(15000)
+			.height(16000)
 			.x(d3.scale.linear().domain([15,100]))
 		    .dimension(endStnDim)
 		    .group(endStnGroup)
@@ -126,8 +144,8 @@ function makeGraphs(error, projectsJson) {
 		    .labelOffsetY(10)
 			.xAxis().ticks(4);
 	timeChart
-			.width(850)
-			.height(150)
+			.width(750)
+			.height(120)
 			.margins({top: 10, right: 50, bottom: 20, left: 20})
 			.dimension(dateDim)
 			.group(numRecordsByDate)
@@ -147,7 +165,7 @@ function makeGraphs(error, projectsJson) {
 
 	var drawMap = function(){
 
-	    map.setView([40.73, -74.0059], 11);
+	    map.setView([40.730610, -73.935242], 11);
 		mapLink = '<a href="http://openstreetmap.org">OpenStreetMap</a>';
 		L.tileLayer(
 			'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
